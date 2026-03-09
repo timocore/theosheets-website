@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --parchment: #f5f0e8;
+  --charcoal: #3d3630;
+  --charcoal-light: #6b635b;
+  --charcoal-dark: #2c2416; /* Preferred banner/hero color */
+  --honey: #c9a227;
+  --honey-light: #d4b84a;
+  --honey-dark: #a8861f;
+  --border-warm: #e5ddd4;
+}
+
+body {
+  @apply bg-parchment text-charcoal antialiased;
+}
+
+@keyframes sale-bar-bg {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes sale-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.333%);
+  }
+}
+
+.animate-sale-bar {
+  animation: sale-bar-bg 4s ease-in-out infinite;
+}
+
+.animate-sale-marquee {
+  animation: sale-marquee 25s linear infinite;
+}
