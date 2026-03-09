@@ -4,7 +4,7 @@ import { getReviewStatsForProducts } from "./reviews";
 export type ProductSort = "newest" | "popular" | "price-asc" | "price-desc";
 
 /** Serialize Prisma product for Client Components (Decimal → number, ensures plain objects) */
-export function serializeProduct<T extends { price: unknown; compareAtPrice?: unknown; variants?: { price: unknown }[] }>(
+export function serializeProduct<T extends { price: unknown; compareAtPrice?: unknown; variants?: { price: unknown; [k: string]: unknown }[] }>(
   p: T
 ) {
   const obj = {
@@ -87,8 +87,8 @@ export async function getProducts(filters: ProductFilters = {}) {
   ]);
 
   const products = rawProducts.map(serializeProduct);
-  const reviewStats = await getReviewStatsForProducts(products.map((p) => p.id));
-  const productsWithReviews = products.map((p) => ({
+  const reviewStats = await getReviewStatsForProducts(products.map((p: (typeof products)[number]) => p.id));
+  const productsWithReviews = products.map((p: (typeof products)[number]) => ({
     ...p,
     reviewAverage: reviewStats[p.id]?.average ?? 0,
     reviewCount: reviewStats[p.id]?.count ?? 0,
@@ -117,8 +117,8 @@ export async function getFeaturedProducts(limit = 6) {
     include: { variants: { orderBy: { sortOrder: "asc" } } },
   });
   const products = rawProducts.map(serializeProduct);
-  const reviewStats = await getReviewStatsForProducts(products.map((p) => p.id));
-  return products.map((p) => ({
+  const reviewStats = await getReviewStatsForProducts(products.map((p: (typeof products)[number]) => p.id));
+  return products.map((p: (typeof products)[number]) => ({
     ...p,
     reviewAverage: reviewStats[p.id]?.average ?? 0,
     reviewCount: reviewStats[p.id]?.count ?? 0,
@@ -162,9 +162,9 @@ export async function getFilterOptions() {
   ]);
 
   return {
-    instruments: instruments.map((i) => i.instrument).filter(Boolean) as string[],
-    difficulties: difficulties.map((d) => d.difficulty).filter(Boolean) as string[],
-    moods: moods.map((m) => m.mood).filter(Boolean) as string[],
-    collections: collections.map((c) => c.collection).filter(Boolean) as string[],
+    instruments: instruments.map((i: (typeof instruments)[number]) => i.instrument).filter(Boolean) as string[],
+    difficulties: difficulties.map((d: (typeof difficulties)[number]) => d.difficulty).filter(Boolean) as string[],
+    moods: moods.map((m: (typeof moods)[number]) => m.mood).filter(Boolean) as string[],
+    collections: collections.map((c: (typeof collections)[number]) => c.collection).filter(Boolean) as string[],
   };
 }

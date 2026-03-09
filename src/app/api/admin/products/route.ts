@@ -14,11 +14,11 @@ export async function GET(req: NextRequest) {
   });
 
   return NextResponse.json(
-    products.map((p) => ({
+    products.map((p: (typeof products)[number]) => ({
       ...p,
       price: Number(p.price),
       compareAtPrice: p.compareAtPrice ? Number(p.compareAtPrice) : null,
-      variants: p.variants.map((v) => ({
+      variants: p.variants.map((v: (typeof p.variants)[number]) => ({
         ...v,
         price: Number(v.price),
       })),

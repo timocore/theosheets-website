@@ -167,7 +167,7 @@ async function fulfillOrder(paymentIntent: Stripe.PaymentIntent) {
     await sendSetPasswordEmail({ to: email, token });
   }
 
-  const orderItems = order.items.map((i) => ({
+  const orderItems = order.items.map((i: (typeof order.items)[number]) => ({
     title: (i.productSnapshot as { title?: string })?.title ?? "Item",
     quantity: i.quantity,
     totalPrice: Number(i.totalPrice),

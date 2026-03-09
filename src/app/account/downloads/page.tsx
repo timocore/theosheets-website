@@ -33,7 +33,7 @@ export default async function DownloadsPage() {
         </p>
       ) : (
         <ul className="space-y-4">
-          {downloads.map((d) => {
+          {downloads.map((d: (typeof downloads)[number]) => {
             const isReady = !isPlaceholderKey(d.s3Key);
             return (
               <li

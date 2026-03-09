@@ -19,14 +19,87 @@ interface SerializedProduct {
   sku: string;
   slug: string;
   title: string;
-  [key: string]: unknown;
+  shortDescription?: string;
+  longDescription?: string;
+  aboutThePiece?: string;
+  whatBuyersShouldKnow?: string;
+  composer?: string;
+  instrument?: string;
+  difficulty?: string;
+  mood?: string;
+  category?: string;
+  collection?: string;
+  tags?: string[];
+  durationSeconds?: number | null;
+  pageCount?: number | null;
+  format?: string;
+  productImage?: string;
+  previewPdfAsset?: string;
+  previewAudioUrl?: string;
+  fullPdfFile?: string;
+  accompanimentFile?: string;
+  multitrackFile?: string;
+  standaloneMp3File?: string;
   price: number;
   compareAtPrice: number | null;
+  status?: string;
+  featured?: boolean;
+  sortOrder?: number;
+  enablePreviewAudio?: boolean;
+  enableStandaloneMp3?: boolean;
+  enableAccompaniment?: boolean;
+  enableMultitrack?: boolean;
+  seoTitle?: string;
+  seoDescription?: string;
+  adminNotes?: string;
+  internalName?: string;
   variants: SerializedVariant[];
 }
 
 interface ProductFormProps {
   product?: SerializedProduct;
+}
+
+interface FormState {
+  sku: string;
+  slug: string;
+  title: string;
+  shortDescription: string;
+  longDescription: string;
+  aboutThePiece: string;
+  whatBuyersShouldKnow: string;
+  composer: string;
+  instrument: string;
+  difficulty: string;
+  mood: string;
+  category: string;
+  collection: string;
+  tags: string;
+  durationSeconds: string | number;
+  pageCount: string | number;
+  format: string;
+  productImage: string;
+  previewPdfAsset: string;
+  previewAudioUrl: string;
+  fullPdfFile: string;
+  accompanimentFile: string;
+  multitrackFile: string;
+  standaloneMp3File: string;
+  price: string | number;
+  compareAtPrice: string | number;
+  status: string;
+  featured: boolean;
+  sortOrder: number;
+  enablePreviewAudio: boolean;
+  enableStandaloneMp3: boolean;
+  enableAccompaniment: boolean;
+  enableMultitrack: boolean;
+  availableVariants: string[];
+  seoTitle: string;
+  seoDescription: string;
+  adminNotes: string;
+  internalName: string;
+  variants: { key: string; name: string; price: number }[];
 }
 
 const VARIANT_OPTIONS = [
@@ -119,7 +192,7 @@ export function ProductForm({ product }: ProductFormProps) {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<FormState>({
     sku: product?.sku ?? "",
     slug: product?.slug ?? "",
     title: product?.title ?? "",
@@ -167,7 +240,7 @@ export function ProductForm({ product }: ProductFormProps) {
       })) ?? [{ key: "pdf", name: "PDF Score", price: product ? Number(product.price) : 0 }],
   });
 
-  function update(f: Partial<typeof form>) {
+  function update(f: Partial<FormState>) {
     setForm((prev) => ({ ...prev, ...f }));
   }
 
@@ -179,7 +252,7 @@ export function ProductForm({ product }: ProductFormProps) {
     try {
       const payload = {
         ...form,
-        tags: form.tags.split(",").map((t) => t.trim()).filter(Boolean),
+        tags: form.tags.split(",").map((t: string) => t.trim()).filter(Boolean),
         durationSeconds: form.durationSeconds ? parseInt(String(form.durationSeconds), 10) : null,
         pageCount: form.pageCount ? parseInt(String(form.pageCount), 10) : null,
         price: Number(form.price),

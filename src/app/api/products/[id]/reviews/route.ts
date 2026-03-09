@@ -26,13 +26,13 @@ export async function GET(
   const count = reviews.length;
   const average =
     count > 0
-      ? reviews.reduce((sum, r) => sum + r.rating, 0) / count
+      ? reviews.reduce((sum: number, r: (typeof reviews)[number]) => sum + r.rating, 0) / count
       : 0;
 
   return NextResponse.json({
     average: Math.round(average * 10) / 10,
     count,
-    reviews: reviews.map((r) => ({
+    reviews: reviews.map((r: (typeof reviews)[number]) => ({
       id: r.id,
       rating: r.rating,
       comment: r.comment,
@@ -88,7 +88,7 @@ export async function POST(
   });
   const count = reviews.length;
   const average =
-    count > 0 ? reviews.reduce((sum, r) => sum + r.rating, 0) / count : 0;
+    count > 0 ? reviews.reduce((sum: number, r: (typeof reviews)[number]) => sum + r.rating, 0) / count : 0;
 
   return NextResponse.json({
     average: Math.round(average * 10) / 10,

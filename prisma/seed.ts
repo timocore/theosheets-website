@@ -209,7 +209,7 @@ async function main() {
       galleryImages: [],
       previewPageImages: [],
       relatedProductIds: relatedProductIds ?? [],
-      bundleDefinitions: bundleDefinitions ?? Prisma.DbNull,
+      bundleDefinitions: bundleDefinitions ?? Prisma.JsonNull,
     };
     await prisma.product.upsert({
       where: { slug: product.slug },
@@ -221,7 +221,7 @@ async function main() {
         galleryImages: [],
         previewPageImages: [],
         relatedProductIds: relatedProductIds ?? [],
-        bundleDefinitions: bundleDefinitions ?? Prisma.DbNull,
+        bundleDefinitions: bundleDefinitions ?? Prisma.JsonNull,
       },
     });
   }

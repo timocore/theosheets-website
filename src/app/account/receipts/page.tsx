@@ -22,7 +22,7 @@ export default async function ReceiptsPage() {
         <p className="text-charcoal-light">No receipts yet.</p>
       ) : (
         <ul className="space-y-6">
-          {orders.map((order) => (
+          {orders.map((order: (typeof orders)[number]) => (
             <li
               key={order.id}
               className="border border-border-warm rounded-lg p-4 bg-parchment-light"
@@ -36,7 +36,7 @@ export default async function ReceiptsPage() {
                 </span>
               </div>
               <ul className="text-sm text-charcoal-light space-y-1 mb-3">
-                {order.items.map((item) => (
+                {order.items.map((item: (typeof order.items)[number]) => (
                   <li key={item.id}>
                     {item.quantity}× (from order) — $
                     {Number(item.totalPrice).toFixed(2)}

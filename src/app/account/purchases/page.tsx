@@ -22,7 +22,7 @@ export default async function PurchasesPage() {
         <p className="text-charcoal-light">You haven&apos;t made any purchases yet.</p>
       ) : (
         <ul className="space-y-6">
-          {orders.map((order) => (
+          {orders.map((order: (typeof orders)[number]) => (
             <li
               key={order.id}
               className="border border-border-warm rounded-lg p-4 bg-parchment-light"

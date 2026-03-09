@@ -1,7 +1,7 @@
 "use client";
 
 import { signIn } from "next-auth/react";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
@@ -13,7 +13,7 @@ function getRedirectUrl(callbackUrl: string | null): string {
   return "/account";
 }
 
-export default function SignInPage() {
+function SignInForm() {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
   const redirectTo = getRedirectUrl(callbackUrl);
@@ -140,5 +140,17 @@ export default function SignInPage() {
         </p>
       </div>
     </main>
+  );
+}
+
+export default function SignInPage() {
+  return (
+    <Suspense fallback={
+      <main className="min-h-screen bg-parchment flex flex-col items-center justify-center px-6">
+        <div className="w-full max-w-sm text-center text-charcoal-light">Loading…</div>
+      </main>
+    }>
+      <SignInForm />
+    </Suspense>
   );
 }

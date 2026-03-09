@@ -10,7 +10,7 @@ export async function getReviewStats(productId: string) {
     const average =
       count > 0
         ? Math.round(
-            (reviews.reduce((sum, r) => sum + r.rating, 0) / count) * 10
+            (reviews.reduce((sum: number, r: (typeof reviews)[number]) => sum + r.rating, 0) / count) * 10
           ) / 10
         : 0;
     return { average, count };

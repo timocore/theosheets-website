@@ -32,7 +32,7 @@ export default async function AdminProductsPage() {
             </tr>
           </thead>
           <tbody>
-            {products.map((p) => (
+            {products.map((p: (typeof products)[number]) => (
               <tr key={p.id} className="border-t border-border-warm">
                 <td className="p-4">
                   <Link

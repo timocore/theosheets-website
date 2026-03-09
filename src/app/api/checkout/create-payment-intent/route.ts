@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
           { status: 400 }
         );
       }
-      const variant = product.variants.find((v) => v.key === item.variantKey);
+      const variant = product.variants.find((v: (typeof product.variants)[number]) => v.key === item.variantKey);
       if (!variant) {
         return NextResponse.json(
           { error: `Variant ${item.variantKey} not found for ${product.title}.` },

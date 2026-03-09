@@ -21,7 +21,7 @@ export default async function EditProductPage({ params }: PageProps) {
       ...product,
       price: Number(product.price),
       compareAtPrice: product.compareAtPrice ? Number(product.compareAtPrice) : null,
-      variants: product.variants.map((v) => ({
+      variants: product.variants.map((v: (typeof product.variants)[number]) => ({
         ...v,
         price: Number(v.price),
       })),

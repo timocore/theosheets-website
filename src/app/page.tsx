@@ -49,7 +49,7 @@ export default async function HomePage() {
                 View all
               </Link>
             </div>
-            <ProductGrid products={featuredProducts} />
+            <ProductGrid products={featuredProducts as unknown as Parameters<typeof ProductGrid>[0]["products"]} />
           </div>
         </section>
       )}

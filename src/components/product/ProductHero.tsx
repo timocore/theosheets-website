@@ -67,7 +67,7 @@ export function ProductHero({ product, reviewStats }: ProductHeroProps) {
         {hasPreviewPdf && !isValidImageUrl(rawImage) && (
           <PreviewViewer
             imageUrl={null}
-            previewPdfUrl={product.previewPdfAsset}
+            previewPdfUrl={product.previewPdfAsset ?? null}
             previewPageImages={product.previewPageImages ?? []}
             productTitle={product.title}
           >
@@ -112,8 +112,8 @@ export function ProductHero({ product, reviewStats }: ProductHeroProps) {
         <div className="flex flex-wrap gap-3 mt-6">
           {hasPreviewPdf && (
             <PreviewViewer
-              imageUrl={imageUrl}
-              previewPdfUrl={product.previewPdfAsset}
+              imageUrl={imageUrl ?? null}
+              previewPdfUrl={product.previewPdfAsset ?? null}
               previewPageImages={product.previewPageImages ?? []}
               productTitle={product.title}
             >

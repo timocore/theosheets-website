@@ -89,7 +89,7 @@ export default async function CatalogPage({ searchParams }: PageProps) {
             </div>
           ) : (
             <>
-              <ProductGrid products={products} />
+              <ProductGrid products={products as unknown as Parameters<typeof ProductGrid>[0]["products"]} />
               {pagination.totalPages > 1 && (
                 <CatalogPagination
                   currentPage={pagination.page}

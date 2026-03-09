@@ -7,7 +7,8 @@
 function getSalePercentClient(): number {
   if (typeof window === "undefined") return 0;
   try {
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    // Dynamic require to avoid importing client store on server
+    // eslint-disable-next-line
     const { useSaleStore } = require("@/store/sale-store");
     return useSaleStore.getState().salePercent;
   } catch {

@@ -24,8 +24,6 @@ export function PreviewAudioPlayer({ src, title }: PreviewAudioPlayerProps) {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
 
-  if (!src?.trim()) return null;
-
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -41,6 +39,8 @@ export function PreviewAudioPlayer({ src, title }: PreviewAudioPlayerProps) {
       audio.removeEventListener("durationchange", onDurationChange);
     };
   }, []);
+
+  if (!src?.trim()) return null;
 
   function togglePlay() {
     const audio = audioRef.current;

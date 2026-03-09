@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { SerifHeading } from "@/components/shared/SerifHeading";
@@ -30,7 +30,7 @@ export function ReviewsSection({ productId, productSlug }: ReviewsSectionProps) 
   const [comment, setComment] = useState("");
   const [error, setError] = useState("");
 
-  async function fetchReviews() {
+  const fetchReviews = useCallback(async () => {
     try {
       const res = await fetch(`/api/products/${productId}/reviews`);
       const data = await res.json();
@@ -42,11 +42,11 @@ export function ReviewsSection({ productId, productSlug }: ReviewsSectionProps) 
     } finally {
       setLoading(false);
     }
-  }
+  }, [productId]);
 
   useEffect(() => {
     fetchReviews();
-  }, [productId]);
+  }, [fetchReviews]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();

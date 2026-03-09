@@ -37,16 +37,17 @@ export default async function ProductPage({ params }: PageProps) {
     product.mood ? getProducts({ limit: 6, mood: product.mood }) : { products: [] },
     product.collection ? getProducts({ limit: 6, collection: product.collection }) : { products: [] },
   ]);
+  type ProductItem = (typeof byInstrument.products)[number] | (typeof byMood.products)[number] | (typeof byCollection.products)[number];
   const combined = [
     ...byInstrument.products,
-    ...byMood.products.filter((p) => !byInstrument.products.some((x) => x.id === p.id)),
+    ...byMood.products.filter((p: ProductItem) => !byInstrument.products.some((x: ProductItem) => x.id === p.id)),
     ...byCollection.products.filter(
-      (p) =>
-        !byInstrument.products.some((x) => x.id === p.id) &&
-        !byMood.products.some((x) => x.id === p.id)
+      (p: ProductItem) =>
+        !byInstrument.products.some((x: ProductItem) => x.id === p.id) &&
+        !byMood.products.some((x: ProductItem) => x.id === p.id)
     ),
   ];
-  const relatedProducts = combined.filter((p) => p.id !== product.id).slice(0, 6);
+  const relatedProducts = combined.filter((p: ProductItem) => p.id !== product.id).slice(0, 6);
   const reviewStats = await getReviewStats(product.id);
 
   const details = [
@@ -66,7 +67,7 @@ export default async function ProductPage({ params }: PageProps) {
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8">
-      <ProductHero product={product} reviewStats={reviewStats} />
+      <ProductHero product={product as unknown as Parameters<typeof ProductHero>[0]["product"]} reviewStats={reviewStats} />
 
       {product.enablePreviewAudio && product.previewAudioUrl && (
         <div className="mt-12">
@@ -115,7 +116,7 @@ export default async function ProductPage({ params }: PageProps) {
 
       {relatedProducts.length > 0 && (
         <section className="mt-12 pt-12 border-t border-border-warm">
-          <RelatedProducts products={relatedProducts} />
+          <RelatedProducts products={relatedProducts as unknown as Parameters<typeof RelatedProducts>[0]["products"]} />
         </section>
       )}
     </div>
