@@ -1,5 +1,8 @@
 import Link from "next/link";
 import { getFeaturedProducts } from "@/lib/products";
+
+/** Force dynamic rendering so featured products (and their images) are always fresh */
+export const dynamic = "force-dynamic";
 import { Logo } from "@/components/shared/Logo";
 import { SerifHeading } from "@/components/shared/SerifHeading";
 import { CTAButton } from "@/components/shared/CTAButton";
