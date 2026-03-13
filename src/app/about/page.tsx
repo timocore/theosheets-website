@@ -12,11 +12,11 @@ export default function AboutPage() {
           style={{ backgroundImage: "url(/images/hero.png)" }}
         />
         <div className="absolute inset-0 bg-charcoal-dark/55" aria-hidden />
-        <div className="relative z-10 text-parchment">
-          <h1 className="font-serif text-4xl md:text-6xl font-medium tracking-tight mb-4">
+        <div className="relative z-10 text-parchment flex flex-col items-center gap-7">
+          <h1 className="font-serif text-4xl md:text-6xl font-medium tracking-tight text-center">
             About Theo<span className="text-honey">Sheets</span>
           </h1>
-          <p className="text-lg md:text-xl text-parchment/90 max-w-xl mb-8">
+          <p className="text-lg md:text-xl text-parchment/90 max-w-xl text-center">
             Music written to be performed.
           </p>
           <CTAButton href="/sheet-music" size="lg">

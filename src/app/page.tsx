@@ -18,24 +18,22 @@ export default async function HomePage() {
   return (
     <main>
       {/* Dark warm hero */}
-      <section className="relative min-h-[70vh] flex flex-col justify-center items-center px-6 text-center overflow-hidden">
+      <section className="relative min-h-[70vh] overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: "url(/images/hero.png)" }}
         />
         <div className="absolute inset-0 bg-charcoal-dark/55" aria-hidden />
-        <div className="relative z-10 text-parchment">
-        <h1 className="font-serif text-4xl md:text-6xl font-medium tracking-tight mb-4">
-          <div className="flex justify-center">
-            <Logo href="/" variant="dark" className="text-4xl md:text-6xl" />
-          </div>
-        </h1>
-        <p className="text-lg md:text-xl text-parchment/90 max-w-xl mb-8">
-          Elegant sheet music for piano, worship, and cinematic performance.
-        </p>
-        <CTAButton href="/sheet-music" size="lg">
-          Browse Sheet Music
-        </CTAButton>
+        <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center text-parchment z-10">
+          <h1 className="font-serif text-4xl md:text-6xl font-medium tracking-tight -mb-2 text-center">
+            <Logo href="/" variant="dark" className="text-5xl md:text-7xl lg:text-8xl" />
+          </h1>
+          <p className="text-lg md:text-xl text-parchment/90 max-w-xl mb-8 text-center">
+            Elegant sheet music for piano, worship, and cinematic performance.
+          </p>
+          <CTAButton href="/sheet-music" size="lg">
+            Browse Sheet Music
+          </CTAButton>
         </div>
       </section>
 
