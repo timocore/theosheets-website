@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { sendWelcomeEmail } from "@/lib/sendWelcomeEmail";
 import { sendNewsletterConfirmation } from "@/lib/email";
 import crypto from "crypto";
 
@@ -41,10 +42,16 @@ export async function POST(req: Request) {
       });
     }
 
-    await sendNewsletterConfirmation({
+    const unsubscribeUrl = `${siteUrl}/newsletter/unsubscribe?token=${unsubscribeToken}`;
+    const result = await sendWelcomeEmail({
       to: trimmed,
-      unsubscribeUrl: `${siteUrl}/newsletter/unsubscribe?token=${unsubscribeToken}`,
+      from: process.env.EMAIL_FROM ?? "TheoSheets <hello@theosheets.com>",
+      unsubscribeUrl,
+      tags: ["newsletter", "welcome"],
     });
+    if (result.error) {
+      await sendNewsletterConfirmation({ to: trimmed, unsubscribeUrl });
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {
